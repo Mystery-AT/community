@@ -1,6 +1,7 @@
 package com.lrj.community.controller;
 
 import com.lrj.community.dto.AccessTokenDTO;
+import com.lrj.community.dto.GithubUser;
 import com.lrj.community.provider.GithubProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,7 +22,9 @@ public class AuthorizeController {
         accessTokenDTO.setClient_secret("c1a5403084af4a43dd70767b2e65297475c56385");
         accessTokenDTO.setRedirect_uri("http://localhost:8080/callback");
         accessTokenDTO.setState(state);
-        githubProvider.getAccessToken(accessTokenDTO);
+        String accessToken = githubProvider.getAccessToken(accessTokenDTO);
+        GithubUser user = githubProvider.getGithubUser(accessToken);
+        System.out.println(user.getName());
         return "index";
     }
 
