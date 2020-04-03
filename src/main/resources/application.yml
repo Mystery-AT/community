@@ -11,3 +11,5 @@ spring:
     password: admin
     type: com.alibaba.druid.pool.DruidDataSource
     url: jdbc:mysql://localhost:3306/community?serverTimezone=UTC
+  thymeleaf:
+    cache: false
