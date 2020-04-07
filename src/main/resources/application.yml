@@ -1,7 +1,7 @@
 github:
   client:
     id: b7af8716ce883057c670
-    secret: 82d1a0c119edc1b319706749b07857c0ad42f28f
+    secret: d626afa072caf92d77a86662db0fc2021e48838a
   redirect:
     uri: http://localhost:8080/callback
 spring:
@@ -13,3 +13,8 @@ spring:
     url: jdbc:mysql://localhost:3306/community?serverTimezone=UTC
   thymeleaf:
     cache: false
+#  resources:
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+#    static-locations: classpath:/static/image/

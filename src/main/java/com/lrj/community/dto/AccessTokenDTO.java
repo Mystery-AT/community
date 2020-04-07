@@ -1,11 +1,12 @@
 package com.lrj.community.dto;
 
+//github回调后的参数 封装（账号令牌）
 public class AccessTokenDTO {
-    private String client_id;
-    private String client_secret;
-    private String code;
-    private String redirect_uri;
-    private String state;
+    private String client_id; //github的应用id
+    private String client_secret; //github的应用密码
+    private String code; //github的code
+    private String redirect_uri; //github的重定向uri
+    private String state; //github的状态码
 
     public String getClient_id() {
         return client_id;
