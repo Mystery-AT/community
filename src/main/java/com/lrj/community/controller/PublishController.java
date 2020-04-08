@@ -1,12 +1,15 @@
 package com.lrj.community.controller;
 
+import com.lrj.community.dto.QuestionDTO;
 import com.lrj.community.mapper.QuestionMapper;
 import com.lrj.community.model.Question;
 import com.lrj.community.model.User;
+import com.lrj.community.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -18,8 +21,21 @@ public class PublishController {
     @Autowired(required = false)
     private QuestionMapper questionMapper;
 
+    @Autowired
+    private QuestionService questionService;
+
     @GetMapping("/publish")
     public String publish() {
+        return "publish";
+    }
+
+    @GetMapping("/publish/{id}")
+    public String edit(@PathVariable("id") Integer id,Model model){
+        QuestionDTO question = questionService.getById(id);
+        model.addAttribute("title",question.getTitle());
+        model.addAttribute("description",question.getDescription());
+        model.addAttribute("tag",question.getTag());
+        model.addAttribute("id",question.getId());
         return "publish";
     }
 
@@ -28,7 +44,8 @@ public class PublishController {
                             Model model,
                             @RequestParam("title") String title,
                             @RequestParam("description") String description,
-                            @RequestParam("tag") String tag) {
+                            @RequestParam("tag") String tag,
+                            @RequestParam(name = "id" , required = false) Integer id) {
         //看一下用户有没有登陆
         User user = (User) session.getAttribute("user");
         if (user == null) {
@@ -46,10 +63,9 @@ public class PublishController {
         question.setDescription(description);
         question.setTag(tag);
         question.setCreator(user.getId());
-        question.setGmtCreate(System.currentTimeMillis());
-        question.setGmtModified(question.getGmtCreate());
+        question.setId(id);
         //将数据封装到对象中 存入数据库
-        questionMapper.create(question);
+        questionService.createOrUpdate(question);
         //返回到首页
         return "redirect:/";
     }
