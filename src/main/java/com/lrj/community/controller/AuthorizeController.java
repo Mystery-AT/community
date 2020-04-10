@@ -73,11 +73,15 @@ public class AuthorizeController {
             //用于 服务器 突然停止后 无需再去调用 github的 登陆接口
             String token = UUID.randomUUID().toString();
             user.setToken(token);
+
+
+
             //github中的名字
             user.setName(githubUser.getName());
             //github中的账号id
             user.setAccountId(String.valueOf(githubUser.getId()));
-
+            System.out.println("看一下accountId:"+user.getAccountId());
+            user.setToken(token);
             //github中账号的 头像 的地址
             user.setAvatarUrl(githubUser.getAvatar_url());
             //存入数据库中

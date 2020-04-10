@@ -129,7 +129,6 @@ public class PaginationDTO {
                 pages.add(page + i);
             }
         }
-        System.out.println(pages);
 
         //是否展示上一页的按钮，如果是第一页则不能上一页
         if (page == 1) {

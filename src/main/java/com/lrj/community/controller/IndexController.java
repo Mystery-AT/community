@@ -28,7 +28,6 @@ public class IndexController {
     public String index(HttpServletRequest request, Model model,
                         @RequestParam(name = "page", defaultValue = "1") Integer page,
                         @RequestParam(name = "size", defaultValue = "5") Integer size) {
-        System.out.println("看一下"+page+":"+size);
         //通过 当前页-每页的显示数量   进行分页查询
         PaginationDTO pagination = questionService.list(page, size);
         //将数据通过 model 传递到 前端页面
